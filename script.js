@@ -1,12 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const micAudio = document.createElement("audio");
-  micAudio.id = "mic-audio";
-  micAudio.src = "happy.mp3";
-  micAudio.controls = true; // Para mostrar controles
-  micAudio.style.display = "none"; // Oculto por defecto
-  document.body.appendChild(micAudio);
-
   // prompt user for first name
+
   var user = prompt("Escribe tu nombre (no soy adivino):");
 
   if (user === null || user === "") {
@@ -27,6 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("h1").textContent = "Feliz Cumple " + user + "!";
   }
 
+  if (user !== null) {
+    document.title = "Happy Birthday " + user + "!";
+    document.querySelector("h1").textContent = "Happy Birthday " + user + "!";
+  }
+
   // constant variables
   const mic = document.getElementById("mic");
   const cursor = document.getElementById("cursor");
@@ -45,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let analyser;
   let blowThreshold = 110;
   let flameOpacity = 1;
+
   // function to start blow detection
   function startBlowDetection() {
     // initialize the microphone, accept or reject microphone access
@@ -101,17 +101,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // detection loop
     detectBlow();
   }
+
   // listen for the mic button when clicked, initialize the function to handle blow detection
   mic.addEventListener("click", function () {
     micInstructions.style.display = "block";
     cursorInstructions.style.display = "none";
     instructionsContainer.style.display = "none";
 
-    // Reproducir la pista de audio
-    micAudio.style.display = "block"; // Mostrar controles del audio
-    micAudio.play(); // Reproducir el audio
-
     startBlowDetection();
+
+    const micAudio = new Audio("./happy.mp3");
+    micAudio.play(); // Reproducir el audio
   });
 
   // listen for the cursor button when clicked, initialize the function to handle cursor movement
